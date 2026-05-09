@@ -11,3 +11,6 @@ wheels/
 
 # Environment
 .env
+
+# Raw HotpotQA full training dataset
+hotpotqa_train_raw.json
