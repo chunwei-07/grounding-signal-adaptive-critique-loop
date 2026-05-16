@@ -93,7 +93,7 @@ def call_llm(prompt: str, max_tokens: int, temperature: float) -> tuple[str, int
     response_text = response.choices[0].message.content.strip()
     tokens_used = response.usage.total_tokens
 
-    return latency_ms, response_text, tokens_used
+    return response_text, tokens_used, latency_ms
 
 def call_llm_with_retry(prompt: str, max_tokens: int, temperature: float) -> tuple[str, int, float]:
     """

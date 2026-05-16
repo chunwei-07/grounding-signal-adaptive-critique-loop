@@ -50,7 +50,7 @@ class FSCLResult:
     question_type: str      # bridge/comparison
 
     # Core outputs
-    final_answer:   str
+    final_answer:   str = ""
     answer_history: list[str] = field(default_factory=list)
 
     # Iteration tracking

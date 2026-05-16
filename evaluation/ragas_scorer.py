@@ -61,7 +61,7 @@ def build_ragas_config() -> Faithfulness:
         Configured faithfulness metric object
     """
     client = AsyncOpenAI()
-    llm    = llm_factory(RAGAS_LLM_MODEL, client=client)
+    llm    = llm_factory(RAGAS_LLM_MODEL, client=client, max_tokens=2048)
     return Faithfulness(llm=llm)
 
 
@@ -96,10 +96,12 @@ def score_one(
         faithfulness_score = -1.0 on error
     """
     try:
-        result = ragas_metric.score(
-            user_input         = question,
-            response           = answer,
-            retrieved_contexts = [context], 
+        result = asyncio.run(
+            ragas_metric.ascore(
+                user_input=question,
+                response=answer,
+                retrieved_contexts=[context],
+            )
         )
         return float(result.value), ""
     except Exception as e:
@@ -217,7 +219,7 @@ def print_aggregate_stats(records: list[dict], system_label: str):
     
 
 # Main Pipeline
-def main(input_path: str, output_path: str):
+def main(input_path: str, output_path: str, system_filter: str | None):
     """
     Full scoring pipeline:
         1. Load raw results JSON
@@ -245,9 +247,36 @@ def main(input_path: str, output_path: str):
     ragas_metric = build_ragas_config()
     print(f"[RAGAS] Ready.")
 
+    # Load existing scored output if it exists (for incremental scoring)
+    output_file = Path(output_path)
+    if output_file.exists():
+        with open(output_file, "r") as f:
+            existing = json.load(f)
+        # Merge already scored systems into data
+        for k, v in existing.get("results", {}).items():
+            # Only restore if faithfulness has been populated
+            if any(r.get("faithfulness") is not None for r in v):
+                data["results"][k] = v
+                print(f"[RAGAS] Restored existing scores for: {k}")
+
+    # Filter to specific system if requested
+    if system_filter:
+        # Find matching keys e.g., --system FSCL or --system GSAL_theta0.7
+        matching = {k: v for k, v in data["results"].items()
+                    if system_filter.lower() in k.lower()}
+        if not matching:
+            raise ValueError(
+                f"No system matching '{system_filter}' found.\n"
+                f"Available: {list(data['results'].keys())}"
+            )
+        print(f"[RAGAS] Filtering to: {list(matching.keys())}")
+        systems_to_score = matching
+    else:
+        systems_to_score = data["results"]
+
     # Score each system
     total_scored = 0
-    for system_label, records in data["results"].items():
+    for system_label, records in systems_to_score.items():
         print(f"\n{'=' * 60}")
         print(f"Scoring system: {system_label}")
         print(f"{'=' * 60}")
@@ -295,5 +324,11 @@ if __name__ == "__main__":
         default="results/scored_results.json",
         help="Path to write enriched results JSON"
     )
+    parser.add_argument(
+        "--system",
+        type=str,
+        default=None,
+        help="Score only this system (e.g., FSCL, GSAL_theta0.7). Default: all."
+    )
     args = parser.parse_args()
-    main(args.input, args.output)
+    main(args.input, args.output, args.system)

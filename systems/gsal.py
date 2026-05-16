@@ -149,7 +149,7 @@ def run_gsal(question_dict: dict, theta: float = 0.7) -> GSALResult:
 
     try:
         # Step 1: Generate initial answer
-        print(f"    [GSAL θ={theta} Generating initial answer...]")
+        print(f"    [GSAL θ={theta}] Generating initial answer...")
         answer, tokens, latency = generate_answer(question, context)
 
         result.answer_history.append(answer)

@@ -1,0 +1,5 @@
+System,Avg Iterations,Iter Reduction (%),Avg Faithfulness,Faithfulness Δ vs FSCL,Avg Latency (ms),Avg Tokens,% Converged Early
+FSCL (N=2),2.0,0.0,0.6357,0.0,13579.0,1836.0,0.0
+GSAL θ=0.6,1.35,32.3,0.6811,0.0454,10182.0,1236.0,98.0
+GSAL θ=0.7,1.93,3.7,0.6281,-0.0076,14346.0,1781.0,89.3
+GSAL θ=0.8,2.81,-40.3,0.5969,-0.0388,21279.0,2741.0,58.7

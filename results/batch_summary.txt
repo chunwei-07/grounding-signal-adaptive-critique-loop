@@ -1,0 +1,69 @@
+RUN EXPERIMENT
+[FSCL] Batch complete:
+       Questions : 150
+       Errors    : 0
+       Avg iter  : 2.00
+       Avg tokens: 1836
+       Avg latency: 13579ms
+
+[GSAL θ=0.6] Batch complete:
+       Questions : 150
+       Errors    : 0
+       Avg iter      : 1.35
+       Avg tokens    : 1236
+       Avg latency   : 10182ms
+       Converged     : 147/150 (98.0%)
+
+[GSAL θ=0.7] Batch complete:
+       Questions : 150
+       Errors    : 0
+       Avg iter      : 1.93
+       Avg tokens    : 1781
+       Avg latency   : 14346ms
+       Converged     : 134/150 (89.3%)
+
+[GSAL θ=0.8] Batch complete:
+       Questions : 150
+       Errors    : 0
+       Avg iter      : 2.81
+       Avg tokens    : 2741
+       Avg latency   : 21279ms
+       Converged     : 88/150 (58.7%)
+
+
+ANALYSE RESULT
+[RAGAS] FSCL scoring complete:
+        Scored  : 150
+        Errors  : 0
+        Skipped : 0
+        simple  : n= 50 | avg=0.6353
+        moderate: n= 50 | avg=0.6679
+        complex : n= 50 | avg=0.6039
+        Overall : n=150 | avg=0.6357 | min=0.0000 | max=1.0000
+
+[RAGAS] GSAL_theta0.6 scoring complete:
+        Scored  : 150
+        Errors  : 0
+        Skipped : 0
+        simple  : n= 50 | avg=0.6450
+        moderate: n= 50 | avg=0.7338
+        complex : n= 50 | avg=0.6644
+        Overall : n=150 | avg=0.6811 | min=0.0909 | max=1.0000
+
+[RAGAS] GSAL_theta0.7 scoring complete:
+        Scored  : 150
+        Errors  : 0
+        Skipped : 0
+        simple  : n= 50 | avg=0.6178
+        moderate: n= 50 | avg=0.6657
+        complex : n= 50 | avg=0.6008
+        Overall : n=150 | avg=0.6281 | min=0.0000 | max=1.0000
+
+[RAGAS] GSAL_theta0.8 scoring complete:
+        Scored  : 150
+        Errors  : 0
+        Skipped : 0
+        simple  : n= 50 | avg=0.6065
+        moderate: n= 50 | avg=0.6478
+        complex : n= 50 | avg=0.5363
+        Overall : n=150 | avg=0.5969 | min=0.0667 | max=1.0000
