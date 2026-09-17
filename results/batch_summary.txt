@@ -32,6 +32,14 @@ RUN EXPERIMENT
 
 
 ANALYSE RESULT
+[ANALYSE] Wilcoxon Tests vs FSCL:
+  FSCL vs GSAL_theta0.6 | iterations      | p=0.0000 | r=0.654 | CONFIRMED p<0.05
+  FSCL vs GSAL_theta0.6 | faithfulness    | p=0.0190 | r=0.191 | CONFIRMED p<0.05
+  FSCL vs GSAL_theta0.7 | iterations      | p=0.7653 | r=0.024 | REJECTED n.s.
+  FSCL vs GSAL_theta0.7 | faithfulness    | p=0.8374 | r=0.017 | REJECTED n.s.
+  FSCL vs GSAL_theta0.8 | iterations      | p=0.0000 | r=0.623 | CONFIRMED p<0.05
+  FSCL vs GSAL_theta0.8 | faithfulness    | p=0.1508 | r=0.117 | REJECTED n.s.
+
 [RAGAS] FSCL scoring complete:
         Scored  : 150
         Errors  : 0
@@ -67,3 +75,160 @@ ANALYSE RESULT
         moderate: n= 50 | avg=0.6478
         complex : n= 50 | avg=0.5363
         Overall : n=150 | avg=0.5969 | min=0.0667 | max=1.0000
+
+
+S_ret Distribution
+Loading results from: results/raw_results.json
+Theta values found: [0.6, 0.7, 0.8]
+
+=======================================================
+  All S_ret scores — GSAL θ=0.6 (150 questions)
+=======================================================
+  N scores       : 353
+  Mean           : 0.7315
+  Median         : 0.7520
+  Std dev        : 0.1393
+  Min            : 0.2432
+  Max            : 0.9855
+  25th pct       : 0.6369
+  50th pct       : 0.7520
+  75th pct       : 0.8322
+  90th pct       : 0.8944
+  95th pct       : 0.9250
+  % above 0.60   : 83.9%
+  % above 0.70   : 64.3%
+  % above 0.80   : 37.1%
+
+  S_ret by evaluation turn (theta=0.6):
+  Turn     N      Mean     Median   Std     
+  ----------------------------------------
+  0        150    0.6660   0.6821   0.1471  
+  1        150    0.7995   0.8166   0.0998  
+  2        42     0.7513   0.7686   0.1080  
+  3        6      0.6318   0.5969   0.1106  
+  4        5      0.6111   0.5935   0.1170  
+
+=======================================================
+  All S_ret scores — GSAL θ=0.7 (150 questions)
+=======================================================
+  N scores       : 439
+  Mean           : 0.7337
+  Median         : 0.7514
+  Std dev        : 0.1299
+  Min            : 0.2432
+  Max            : 0.9806
+  25th pct       : 0.6585
+  50th pct       : 0.7514
+  75th pct       : 0.8306
+  90th pct       : 0.8876
+  95th pct       : 0.9131
+  % above 0.60   : 86.6%
+  % above 0.70   : 64.5%
+  % above 0.80   : 34.4%
+
+  S_ret by evaluation turn (theta=0.7):
+  Turn     N      Mean     Median   Std     
+  ----------------------------------------
+  0        150    0.6662   0.6862   0.1402  
+  1        150    0.7959   0.8066   0.1041  
+  2        85     0.7640   0.7844   0.1019  
+  3        31     0.7174   0.7074   0.0954  
+  4        23     0.6784   0.6624   0.1044  
+
+=======================================================
+  All S_ret scores — GSAL θ=0.8 (150 questions)
+=======================================================
+  N scores       : 571
+  Mean           : 0.7479
+  Median         : 0.7629
+  Std dev        : 0.1230
+  Min            : 0.1839
+  Max            : 0.9912
+  25th pct       : 0.6843
+  50th pct       : 0.7629
+  75th pct       : 0.8289
+  90th pct       : 0.8886
+  95th pct       : 0.9151
+  % above 0.60   : 89.8%
+  % above 0.70   : 72.5%
+  % above 0.80   : 35.7%
+
+  S_ret by evaluation turn (theta=0.8):
+  Turn     N      Mean     Median   Std     
+  ----------------------------------------
+  0        150    0.6577   0.6711   0.1537  
+  1        150    0.8008   0.8118   0.0983  
+  2        126    0.7936   0.8021   0.0883  
+  3        78     0.7492   0.7528   0.0752  
+  4        67     0.7438   0.7499   0.0684  
+
+=======================================================
+  Pooled S_ret scores — θ=0.6 records (canonical corpus view)
+=======================================================
+  N scores       : 353
+  Mean           : 0.7315
+  Median         : 0.7520
+  Std dev        : 0.1393
+  Min            : 0.2432
+  Max            : 0.9855
+  25th pct       : 0.6369
+  50th pct       : 0.7520
+  75th pct       : 0.8322
+  90th pct       : 0.8944
+  95th pct       : 0.9250
+  % above 0.60   : 83.9%
+  % above 0.70   : 64.3%
+  % above 0.80   : 37.1%
+
+=======================================================
+  PAPER-READY SUMMARY
+=======================================================
+  The S_ret distribution across all evaluation turns
+  has a mean of 0.732, a 75th percentile of 0.832,
+  and a 90th percentile of 0.894, confirming that the
+  natural corpus ceiling lies between theta=0.7 and theta=0.8.
+  This empirically grounds the calibration boundary claim.
+
+
+
+Wilcoxon Per-Tier test
+=================================================================
+  Per-Tier Wilcoxon Signed-Rank: FSCL vs GSAL θ=0.6
+=================================================================
+
+  SIMPLE (n=50)
+  FSCL mean           : 0.6353
+  GSAL mean           : 0.6450
+  Delta               : +0.0098 (+0.98pp) ↑
+  W statistic         : 449.5
+  Z (approx)          : -1.815
+  p-value             : p=0.7765 (n.s.)
+  Effect size r       : 0.257 (small)
+
+  MODERATE (n=50)
+  FSCL mean           : 0.6679
+  GSAL mean           : 0.7338
+  Delta               : +0.0659 (+6.59pp) ↑
+  W statistic         : 262.0
+  Z (approx)          : -3.625
+  p-value             : p=0.0178 *
+  Effect size r       : 0.513 (large)
+
+  COMPLEX (n=50)
+  FSCL mean           : 0.6039
+  GSAL mean           : 0.6644
+  Delta               : +0.0606 (+6.06pp) ↑
+  W statistic         : 313.5
+  Z (approx)          : -3.128
+  p-value             : p=0.1294 (n.s.)
+  Effect size r       : 0.442 (medium)
+
+=================================================================
+  PAPER-READY SUMMARY
+=================================================================
+
+  Simple: FSCL=0.6353, GSAL=0.6450, Δ=+0.98pp, W=450, Z=-1.815, p=0.7765, r=0.257 (small)
+
+  Moderate: FSCL=0.6679, GSAL=0.7338, Δ=+6.59pp, W=262, Z=-3.625, p=0.0178, r=0.513 (large)
+
+  Complex: FSCL=0.6039, GSAL=0.6644, Δ=+6.06pp, W=314, Z=-3.128, p=0.1294, r=0.442 (medium)
